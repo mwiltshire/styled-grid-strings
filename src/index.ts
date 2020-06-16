@@ -114,16 +114,16 @@ export const getGridItemStyles = ({
       // have an available breakpoint for and 'xs' by default.
       return (Boolean(size) && breakpoints[media]) || media === 'xs';
     })
-    .forEach(([breakpoint, size]: [string, number | true]) => {
-      const marginLeft = offsets[breakpoint]
-        ? { 'margin-left': `${calculateSize(offsets[breakpoint])}%` }
+    .forEach(([media, size]: [string, number | true]) => {
+      const marginLeft = offsets[media]
+        ? { 'margin-left': `${calculateSize(offsets[media])}%` }
         : {};
 
       const flex = size === true ? autoLayoutStyles : getFlexItemStyles(size);
-      if (breakpoint === 'xs') {
+      if (media === 'xs') {
         Object.assign(styles, { ...flex, ...marginLeft });
       } else {
-        const width = breakpoints[breakpoint];
+        const width = breakpoints[media];
         const query = `@media (min-width: ${
           typeof width === 'number' ? `${width}px` : width
         })`;
