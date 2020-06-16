@@ -176,6 +176,35 @@ describe('getGridItemStyles', () => {
     expect(styles).toBe(expectedStyles);
   });
 
+  it('applies auto layout styles if size property is true', () => {
+    const styles = getGridItemStyles({
+      sizes: { sm: 12, md: true, lg: 4, xl: 3 }
+    });
+
+    const expectedStyles = `
+      flex-grow: 0;
+      @media (min-width: 576px) {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+      @media (min-width: 768px) {
+        flex-grow: 1;
+        flex-basis: 0;
+        max-width: 100%;
+      }
+      @media (min-width: 992px) {
+        flex-basis: 33.333333%;
+        max-width: 33.333333%;
+      }
+      @media (min-width: 1200px) {
+        flex-basis: 25%;
+        max-width: 25%;
+      }
+    `.replace(/\s{2,}/g, '');
+
+    expect(styles).toBe(expectedStyles);
+  });
+
   it('correctly applies column offsets', () => {
     const styles = getGridItemStyles({
       sizes: { xs: 12, md: 6, lg: 4, xl: 3 },

@@ -3,7 +3,7 @@ type KeyValuePair = { [k: string]: any };
 type Media = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type Sizes = {
-  [k in Media]?: number;
+  [k in Media]?: number | true;
 };
 
 export type Breakpoints = {
@@ -76,6 +76,12 @@ export const getGridContainerStyles = ({
   return stringifyStyles(styles);
 };
 
+const autoLayoutStyles = {
+  'flex-grow': '1',
+  'flex-basis': '0',
+  'max-width': '100%'
+};
+
 export const getGridItemStyles = ({
   breakpoints = defaultBreakpoints,
   sizes = {},
@@ -108,24 +114,21 @@ export const getGridItemStyles = ({
       // have an available breakpoint for and 'xs' by default.
       return (Boolean(size) && breakpoints[media]) || media === 'xs';
     })
-    .forEach(([breakpoint, size]: [string, number]) => {
+    .forEach(([breakpoint, size]: [string, number | true]) => {
       const marginLeft = offsets[breakpoint]
         ? { 'margin-left': `${calculateSize(offsets[breakpoint])}%` }
         : {};
 
+      const flex = size === true ? autoLayoutStyles : getFlexItemStyles(size);
       if (breakpoint === 'xs') {
-        Object.assign(styles, {
-          'flex-basis': `${calculateSize(size)}%`,
-          'max-width': `${calculateSize(size)}%`,
-          ...marginLeft
-        });
+        Object.assign(styles, { ...flex, ...marginLeft });
       } else {
         const width = breakpoints[breakpoint];
         const query = `@media (min-width: ${
           typeof width === 'number' ? `${width}px` : width
         })`;
         Object.assign(styles, {
-          [query]: { ...getFlexItemStyles(size), ...marginLeft }
+          [query]: { ...flex, ...marginLeft }
         });
       }
     });
