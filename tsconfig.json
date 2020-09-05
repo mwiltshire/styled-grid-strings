@@ -5,6 +5,7 @@
     "target": "es6",
     "lib": ["esnext"],
     "moduleResolution": "node",
+    "strict": true,
     "noEmitOnError": true,
     "noImplicitAny": false,
     "removeComments": false,
@@ -12,7 +13,6 @@
     "declaration": true,
     "noImplicitReturns": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "esModuleInterop": true
   },
