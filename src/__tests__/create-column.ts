@@ -1,100 +1,8 @@
-import { createGrid, getGridContainerStyles, getGridItemStyles } from './index';
+import { createColumn } from '../create-column';
 
-describe('createGrid', () => {
-  it('returns object with style properties', () => {
-    const { getGridContainerStyles, getGridItemStyles } = createGrid({
-      spacing: 15,
-      breakpoints: { sm: 600, md: 960, lg: 1280, xl: 1920 }
-    });
-
-    const expectedContainerStyles = `
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: -15px;
-    `.replace(/\s{2,}/g, '');
-
-    const expectedItemStyles = `
-      flex-grow: 0;
-      padding: 15px;
-      flex-basis: 100%;
-      max-width: 100%;
-      @media (min-width: 960px) {
-        flex-basis: 50%;
-        max-width: 50%;
-      }
-      @media (min-width: 1280px) {
-        flex-basis: 33.333333%;
-        max-width: 33.333333%;
-      }
-      @media (min-width: 1920px) {
-        flex-basis: 16.666667%;
-        max-width: 16.666667%;
-      }
-    `.replace(/\s{2,}/g, '');
-
-    expect(getGridContainerStyles()).toBe(expectedContainerStyles);
-    expect(getGridItemStyles({ sizes: { xs: 12, md: 6, lg: 4, xl: 2 } })).toBe(
-      expectedItemStyles
-    );
-  });
-});
-
-describe('getGridContainerStyles', () => {
-  it('returns defaults when no options passed', () => {
-    const styles = getGridContainerStyles();
-
-    const expectedStyles = `
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    `.replace(/\s{2,}/g, '');
-
-    expect(styles).toBe(expectedStyles);
-  });
-
-  it('returns correct styles when direction option passed', () => {
-    const styles = getGridContainerStyles({ direction: 'column' });
-
-    const expectedStyles = `
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-    `.replace(/\s{2,}/g, '');
-
-    expect(styles).toBe(expectedStyles);
-  });
-
-  it('returns correct styles when spacing option passed - number value type', () => {
-    const styles = getGridContainerStyles({ spacing: 15 });
-
-    const expectedStyles = `
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: -15px;
-    `.replace(/\s{2,}/g, '');
-
-    expect(styles).toBe(expectedStyles);
-  });
-
-  it('returns correct styles when spacing option passed - string value type', () => {
-    const styles = getGridContainerStyles({ spacing: '4rem' });
-
-    const expectedStyles = `
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: -4rem;
-    `.replace(/\s{2,}/g, '');
-
-    expect(styles).toBe(expectedStyles);
-  });
-});
-
-describe('getGridItemStyles', () => {
+describe('createColumn', () => {
   it('returns default auto layout styles when no options passed', () => {
-    const styles = getGridItemStyles();
+    const styles = createColumn();
 
     const expectedStyles = `
       flex-grow: 1;
@@ -106,12 +14,12 @@ describe('getGridItemStyles', () => {
   });
 
   it('returns empty string if only auto = false is specified', () => {
-    const styles = getGridItemStyles({ auto: false });
+    const styles = createColumn({ auto: false });
     expect(styles).toBe('');
   });
 
   it('correctly applies grid spacing - number value type', () => {
-    const styles = getGridItemStyles({ spacing: 15 });
+    const styles = createColumn({ spacing: 15 });
 
     const expectedStyles = `
       flex-grow: 1;
@@ -124,7 +32,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('correctly applies grid spacing - string value type', () => {
-    const styles = getGridItemStyles({ spacing: '4rem' });
+    const styles = createColumn({ spacing: '4rem' });
 
     const expectedStyles = `
       flex-grow: 1;
@@ -137,7 +45,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('returns correct CSS with xs size specified', () => {
-    const styles = getGridItemStyles({ sizes: { xs: 4 } });
+    const styles = createColumn({ sizes: { xs: 4 } });
 
     const expectedStyles = `
       flex-grow: 0;
@@ -149,7 +57,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('returns correct CSS with set sizes and default breakpoints', () => {
-    const styles = getGridItemStyles({
+    const styles = createColumn({
       sizes: { sm: 12, md: 6, lg: 4, xl: 3 }
     });
 
@@ -177,7 +85,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('applies auto layout styles if size property is true', () => {
-    const styles = getGridItemStyles({
+    const styles = createColumn({
       sizes: { sm: 12, md: true, lg: 4, xl: 3 }
     });
 
@@ -206,7 +114,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('correctly applies column offsets', () => {
-    const styles = getGridItemStyles({
+    const styles = createColumn({
       sizes: { xs: 12, md: 6, lg: 4, xl: 3 },
       offsets: { xs: 6, lg: 3 }
     });
@@ -235,7 +143,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('returns correct CSS with set sizes and custom breakpoints - number value type', () => {
-    const styles = getGridItemStyles({
+    const styles = createColumn({
       sizes: { sm: 12, md: 6, lg: 4, xl: 3 },
       breakpoints: { sm: 300, md: 400, lg: 500, xl: 600 }
     });
@@ -264,7 +172,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('returns correct CSS with set sizes and custom breakpoints - string value type', () => {
-    const styles = getGridItemStyles({
+    const styles = createColumn({
       sizes: { sm: 12, md: 6, lg: 4, xl: 3 },
       breakpoints: { sm: '20rem', md: '30rem', lg: '40rem', xl: '50rem' }
     });
@@ -293,7 +201,7 @@ describe('getGridItemStyles', () => {
   });
 
   it('returns correct CSS with full set of sizes but only limited custom breakpoints', () => {
-    const styles = getGridItemStyles({
+    const styles = createColumn({
       sizes: { sm: 12, md: 6, lg: 4, xl: 3 },
       breakpoints: { sm: 300, lg: 500 }
     });
@@ -309,6 +217,20 @@ describe('getGridItemStyles', () => {
         max-width: 33.333333%;
       }
     `.replace(/\s{2,}/g, '');
+
+    expect(styles).toBe(expectedStyles);
+  });
+
+  it('treats explicitly undefined sizes as empty', () => {
+    const styles = createColumn({
+      sizes: { sm: undefined, md: undefined, lg: undefined }
+    });
+
+    const expectedStyles = `
+      flex-grow: 1;
+      flex-basis: 0;
+      max-width: 100%;
+  `.replace(/\s{2,}/g, '');
 
     expect(styles).toBe(expectedStyles);
   });
