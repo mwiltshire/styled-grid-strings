@@ -1,6 +1,6 @@
 import { createRow } from './create-row';
 import { createColumn } from './create-column';
-import { GridOptions, GridColumnOptions } from './types';
+import { GridOptions, GridHelpers } from './types';
 
 /**
  * Configure grid breakpoints, direction and spacing options.
@@ -17,13 +17,10 @@ export const createGrid = ({
   breakpoints,
   direction,
   spacing
-}: GridOptions = {}) => {
+}: GridOptions = {}): GridHelpers => {
   return {
     row: () => createRow({ direction, spacing }),
-    column: ({
-      sizes,
-      offsets
-    }: Pick<GridColumnOptions, 'sizes' | 'offsets'> = {}) =>
+    column: ({ sizes, offsets } = {}) =>
       createColumn({ breakpoints, sizes, offsets, spacing })
   };
 };

@@ -29,3 +29,8 @@ export interface GridColumnOptions {
 
 export type GridOptions = GridRowOptions &
   Pick<GridColumnOptions, 'breakpoints'>;
+
+export interface GridHelpers {
+  row: () => string;
+  column: (options: Pick<GridColumnOptions, 'sizes' | 'offsets'>) => string;
+}
