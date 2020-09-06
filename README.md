@@ -165,6 +165,20 @@ export const Grid = () => {
 
 The grid row CSS as a `string`.
 
+**Example**
+
+```js
+import React from 'react';
+import { css } from '@emotion/core';
+import { createRow } from 'styled-grid-helpers';
+
+const rowStyles = createRow({ spacing: 15 });
+
+export const Row = ({ children }) => {
+  return <div css={css(rowStyles)}>{children}</div>;
+};
+```
+
 ### **`createColumn(options?: GridColumnOptions): string`**
 
 **Options**
@@ -178,3 +192,37 @@ The grid row CSS as a `string`.
 **Returns**
 
 The grid column CSS as a `string`.
+
+**Example**
+
+```js
+import React, { useMemo } from 'react';
+import { css } from '@emotion/core';
+import { createColumn } from 'styled-grid-helpers';
+
+export const Column = ({
+  sm,
+  md,
+  lg,
+  xl,
+  smOffset,
+  mdOffset,
+  lgOffset,
+  xlOffset,
+  children
+}) => {
+  const columnStyles = useMemo(() => {
+    const sizes = { sm, md, lg, xl };
+    const offsets = {
+      sm: smOffset,
+      md: mdOffset,
+      lg: lgOffset,
+      xl: xlOffset
+    };
+
+    return createColumn({ sizes, offsets, spacing: 15 });
+  }, [sm, md, lg, xl, smOffset, mdOffset, lgOffset, xlOffset]);
+
+  return <div css={css(columnStyles)}>{children}</div>;
+};
+```
