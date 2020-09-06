@@ -1,5 +1,3 @@
-export type KeyValuePair = { [k: string]: any };
-
 export type Media = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type Sizes = {

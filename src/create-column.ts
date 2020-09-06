@@ -4,7 +4,7 @@ import {
   getFlexItemStyles,
   stringifyStyles
 } from './utils';
-import { GridColumnOptions, KeyValuePair } from './types';
+import { GridColumnOptions } from './types';
 
 const defaultBreakpoints = {
   sm: 576,
@@ -31,7 +31,7 @@ export const createColumn = ({
   spacing = 0,
   auto = true
 }: GridColumnOptions = {}) => {
-  const styles: KeyValuePair = {};
+  const styles = {};
 
   if (auto) {
     // Apply auto layout styles if sizes is empty and auto is true.

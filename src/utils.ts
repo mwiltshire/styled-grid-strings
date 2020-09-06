@@ -1,5 +1,3 @@
-import { KeyValuePair } from './types';
-
 // Keep 7 significant numbers. Comes directly from Material UI
 // grid implementation.
 export const calculateSize = (n: number) => Math.round((n / 12) * 10e7) / 10e5;
@@ -14,7 +12,7 @@ export const getFlexItemStyles = (size: number) => {
   };
 };
 
-export const stringifyStyles = (styles: KeyValuePair): string =>
+export const stringifyStyles = (styles: Record<string, any>): string =>
   Object.entries(styles)
     .map(([k, v]) => {
       if (typeof v !== 'string') {
