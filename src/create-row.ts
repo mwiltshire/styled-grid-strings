@@ -1,5 +1,5 @@
 import { stringifyStyles } from './utils';
-import { GridRowOptions, KeyValuePair } from './types';
+import { GridRowOptions } from './types';
 
 /**
  * Create styles for the grid container row.
@@ -10,7 +10,7 @@ export const createRow = ({
   direction = 'row',
   spacing = 0
 }: GridRowOptions = {}) => {
-  const styles: KeyValuePair = {
+  const styles: Record<string, any> = {
     display: 'flex',
     'flex-direction': direction,
     'flex-wrap': 'wrap'
