@@ -9,9 +9,8 @@ import React from 'react';
 import { css } from '@emotion/core';
 import { createGrid } from 'styled-grid-helpers';
 
-// Out of the box, without any configuration, you get
-// a basic grid with each grid column sharing equal
-// space in the grid row.
+// Out of the box, without any configuration, you get a basic grid
+// with each grid column sharing equal space in the grid row.
 const { row, column } = createGrid();
 
 const rowStyles = row();
