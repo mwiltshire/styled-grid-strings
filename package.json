@@ -1,9 +1,10 @@
 {
   "name": "styled-grid-helpers",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.cjs.js",
-  "module": "index.js",
+  "version": "0.0.0-semantically-released",
+  "description": "styled-grid-helpers is a set of utilities for generating the CSS for your grids and is designed to be used alongside tools like emotion and styled-components.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
