@@ -1,13 +1,13 @@
-<h1 align="center"> 📐 styled-grid-helpers</h1>
+# styled-grid-strings
 
-`styled-grid-helpers` is a set of utilities for generating the CSS for your grids and is designed to be used alongside tools like `emotion` and `styled-components`.
+`styled-grid-strings` is a set of utilities for generating the CSS for your grids and is designed to be used alongside tools like `emotion` and `styled-components`.
 
-The helpers return CSS as a string, so you can pass it directly to `emotion`'s `css` prop, for example.
+CSS is returned as a string, so it can be passed directly to `emotion`'s `css` prop, for example.
 
 ```js
 import React from 'react';
 import { css } from '@emotion/core';
-import { createGrid } from 'styled-grid-helpers';
+import { createGrid } from 'styled-grid-strings';
 
 // Out of the box, without any configuration, you get a basic grid
 // with each grid column sharing equal space in the grid row.
@@ -65,20 +65,22 @@ Like most grid libraries, numbers are used to specify the size of a column at ea
 
 ```js
 const sizes = {
-  // 100% of the row width
-  sm: 12,
+  // 100% of the row width - default behavior
+  xs: 12,
   // 50% of the row width
-  md: 6,
+  sm: 6,
   // 33.33% of the row width
-  lg: 4,
+  md: 4,
   // 25% of the row width.
-  xl: 3
+  lg: 3,
+  // 16.66%% of the row width.
+  xl: 2
 };
 ```
 
 ## API Reference
 
-### **`createGrid(options?: GridOptions): GridHelpers`**
+### **`createGrid(options?: GridOptions): GridFunctions`**
 
 **Options**
 
@@ -89,12 +91,15 @@ const sizes = {
 
 **Returns**
 
-...an object containing two properties:
+An object containing a `row` and a `column` function.
 
-- `row` - Helper function for generating grid container row CSS string.
-- `column` - Helper function for generating grid column CSS string.
+```js
+const { row, column } = createGrid();
+```
 
-While the `row` function takes no arguments, the `column` function can take an options object for further configuration. You'll want to make use of this if you want your columns to be fully responsive.
+The `row` function generates the grid container row CSS string. You don't need to pass any arguments to this one.
+
+The `column` function generates the grid column CSS string and can take an options object for further configuration.
 
 **`column` options**
 
@@ -106,7 +111,7 @@ While the `row` function takes no arguments, the `column` function can take an o
 ```js
 import React from 'react';
 import { css } from '@emotion/core';
-import { createGrid } from 'styled-grid-helpers';
+import { createGrid } from 'styled-grid-strings';
 
 const breakpoints = {
   sm: 576,
@@ -116,8 +121,6 @@ const breakpoints = {
 };
 
 const sizes = {
-  // Each column will take up the full width on small devices.
-  sm: 12,
   // Each column will take up 50% of the width on medium devices.
   md: 6,
   // Each column will take up 25% of the width on large devices.
@@ -169,7 +172,7 @@ The grid row CSS as a `string`.
 ```js
 import React from 'react';
 import { css } from '@emotion/core';
-import { createRow } from 'styled-grid-helpers';
+import { createRow } from 'styled-grid-strings';
 
 const rowStyles = createRow({ spacing: 15 });
 
@@ -197,7 +200,7 @@ The grid column CSS as a `string`.
 ```js
 import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
-import { createColumn } from 'styled-grid-helpers';
+import { createColumn } from 'styled-grid-strings';
 
 export const Column = ({
   sm,

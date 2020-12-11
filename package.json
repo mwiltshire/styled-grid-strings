@@ -1,7 +1,7 @@
 {
-  "name": "styled-grid-helpers",
+  "name": "styled-grid-strings",
   "version": "0.0.0-semantically-released",
-  "description": "styled-grid-helpers is a set of utilities for generating the CSS for your grids and is designed to be used alongside tools like emotion and styled-components.",
+  "description": "styled-grid-strings is a set of utilities for generating the CSS for your grids and is designed to be used alongside tools like emotion and styled-components.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
